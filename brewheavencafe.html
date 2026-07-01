@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brew Hayven Café - Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #f4ebd9;
+      --dark-brown: #66432d;
+      --accent-tan: #e3cbb3;
+      --text-dark: #2c1d11;
+      --white: #ffffff;
+      --gold-muted: #c5a059;
+      --gold-bright: #d9b56d;
+      --shadow: 0 18px 45px rgba(62, 35, 18, 0.18);
+      --footer-height: 56px;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(213, 182, 138, 0.35), transparent 30%),
+        radial-gradient(circle at top right, rgba(102, 67, 45, 0.10), transparent 28%),
+        linear-gradient(180deg, #f9f1e3 0%, #f4ebd9 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      padding-bottom: 0;
+    }
+
+    a { color: inherit; }
+    button, input, select, textarea { font: inherit; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, #5a3926, #66432d 55%, #7b5238);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.16);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      color: #fff7ea;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 24px;
+      text-decoration: none;
+      letter-spacing: 1.8px;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      transition: all 0.25s ease;
+    }
+
+    nav a:hover, nav a.active {
+      background: rgba(244, 235, 217, 0.98);
+      color: var(--dark-brown);
+      transform: translateY(-1px);
+    }
+
+    main.container {
+      max-width: 1250px;
+      margin: 28px auto 0;
+      padding: 0 20px 240px;
+      min-height: calc(100vh - 160px);
+    }
+
+    .page-content { animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-v2 {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 34px;
+      padding: 48px;
+      background:
+        linear-gradient(135deg, rgba(26, 16, 10, 0.88), rgba(102, 67, 45, 0.70)),
+        url('https://i.pinimg.com/1200x/4a/8b/e1/4a8be1181973982ef71aca416448ff5e.jpg') center/cover no-repeat;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.22);
+      color: #fff;
+      margin-bottom: 30px;
+    }
+
+    .hero-v2::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(217, 181, 109, 0.20), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 28%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #f4e6d4;
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.02;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h1 span {
+      color: #e7c98a;
+      font-style: italic;
+    }
+
+    .hero-copy p {
+      font-size: 16px;
+      color: #f6eadb;
+      max-width: 560px;
+      margin-bottom: 26px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .hero-stats div {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 14px 16px;
+      border-radius: 16px;
+      min-width: 145px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-stats strong {
+      display: block;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .hero-stats span {
+      font-size: 13px;
+      color: #f0ddca;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 450px;
+      height: 540px;
+      object-fit: cover;
+      border-radius: 28px;
+      border: 4px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.28);
+    }
+
+    .floating-card {
+      position: absolute;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: white;
+      padding: 16px 18px;
+      border-radius: 18px;
+      box-shadow: 0 16px 30px rgba(0,0,0,0.18);
+    }
+
+    .card-top {
+      top: 20px;
+      left: 0;
+    }
+
+    .card-bottom {
+      bottom: 20px;
+      right: 0;
+    }
+
+    .floating-card p {
+      font-size: 12px;
+      color: #f0ddca;
+      margin-bottom: 4px;
+    }
+
+    .floating-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 700;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-bright), #e7c98a);
+      color: #4b2f1f;
+      box-shadow: 0 10px 24px rgba(217, 181, 109, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--dark-brown);
+      font-size: clamp(28px, 3vw, 36px);
+      text-align: center;
+      margin: 44px 0 24px;
+      letter-spacing: 1px;
+    }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(227, 203, 179, 0.78);
+      color: var(--dark-brown);
+      border: 1px solid rgba(102, 67, 45, 0.08);
+      padding: 10px 18px;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--dark-brown);
+      color: var(--white);
+      box-shadow: 0 10px 20px rgba(102, 67, 45, 0.18);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #7a5138, #66432d);
+      color: var(--white);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #d9c0a7;
+    }
+
+    .card-body {
+      padding: 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff6ea;
+    }
+
+    .card-note {
+      font-size: 12px;
+      color: #f0ddca;
+      font-style: italic;
+      min-height: 34px;
+    }
+
+    .order-btn {
+      background: linear-gradient(135deg, #f8f0df, #e8d5bb);
+      color: #5a3926;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .order-btn:hover { background: #fff; }
+
+    .workflow-section {
+      background: rgba(255, 253, 250, 0.95);
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      max-width: 640px;
+      margin: 30px auto;
+      border: 1px solid rgba(227, 203, 179, 0.95);
+      display: none;
+      backdrop-filter: blur(6px);
+    }
+    .workflow-section.active { display: block; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 700; color: var(--dark-brown); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--accent-tan);
+      border-radius: 10px;
+      background: #fffdf7;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--gold-muted);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.18);
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #5f3c29, #3f2518);
+      color: var(--white);
+      border: none;
+      padding: 13px 16px;
+      width: 100%;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(63, 37, 24, 0.18);
+    }
+
+    .receipt-box {
+      border: 2px dashed var(--dark-brown);
+      padding: 18px;
+      background: #faf7f2;
+      margin-top: 15px;
+      border-radius: 12px;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #66432d, #81583d);
+      color: var(--white);
+      padding: 24px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 16px;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #efe2d2;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, #5a3926, #66432d 60%, #7b5238);
+      color: var(--white);
+      font-size: 11px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 10;
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.14);
+    }
+
+    @media (max-width: 900px) {
+      .nav-container { flex-direction: column; align-items: stretch; }
+      nav { justify-content: center; }
+      .hero-v2 { grid-template-columns: 1fr; padding: 28px 18px; min-height: auto; }
+      .hero-visual { min-height: 420px; }
+      .hero-image { height: 420px; }
+      .card-top, .card-bottom { position: relative; top: auto; left: auto; right: auto; bottom: auto; margin: 10px; }
+      .hero-copy { text-align: center; margin: 0 auto; }
+      .cta-row, .hero-stats { justify-content: center; }
+      main.container { padding: 0 20px 280px; }
+    }
+
+    @media (max-width: 560px) {
+      .logo { font-size: 20px; }
+      nav a { font-size: 13px; padding: 8px 12px; }
+      .hero-copy h1 { font-size: 34px; }
+      .workflow-section { padding: 22px; }
+      main.container { padding: 0 16px 300px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo" data-target="home">BREW HAYVEN</a>
+      <nav aria-label="Main navigation">
+        <a href="#" id="nav-home" class="active" data-target="home">Home</a>
+        <a href="#" id="nav-menu" data-target="menu-section">View Menu</a>
+        <a href="#" id="nav-about" data-target="about-section">About Us</a>
+        <a href="#" id="nav-promo" data-target="promo-section">Promotions</a>
+        <a href="#" id="nav-gallery" data-target="gallery-section">Gallery</a>
+        <a href="#" id="nav-reserve" data-target="reserve-section">Reserve A Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="mainContent">
+    <section id="home" class="page-content" style="display:block;">
+      <div class="hero-v2">
+        <div class="hero-copy">
+          <span class="hero-tag">Brew Hayven Café · Nilai</span>
+          <h1>Cozy Sips, <span>Sunnah Inspired</span> Moments</h1>
+          <p>Experience premium coffee, wholesome treats, and a calming café space built for study sessions, meetups, and peaceful breaks.</p>
+
+          <div class="hero-stats">
+            <div><strong>20+</strong><span>Signature Menu</span></div>
+            <div><strong>Fresh</strong><span>Daily Crafted</span></div>
+            <div><strong>Cozy</strong><span>Study-Friendly Space</span></div>
+          </div>
+
+          <div class="cta-row">
+            <button class="btn btn-primary" data-target="menu-section">Explore Menu ☕</button>
+            <button class="btn btn-ghost" data-target="reserve-section">Reserve a Table</button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="https://i.pinimg.com/736x/e5/f4/40/e5f440a227b9ab19e8bbe098798da7c9.jpg" alt="Brew Hayven Café interior" class="hero-image">
+          <div class="floating-card card-top">
+            <p>Today’s Special</p>
+            <h3>Honey Latte</h3>
+          </div>
+          <div class="floating-card card-bottom">
+            <p>Best Pairing</p>
+            <h3>Date Dessert</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu-section" class="page-content" style="display:none;">
+      <h2 class="section-title">Menu Categories</h2>
+      <div class="menu-tabs">
+        <button class="tab-btn active" data-cat="all">All Menus</button>
+        <button class="tab-btn" data-cat="coffee">Signature Coffee</button>
+        <button class="tab-btn" data-cat="sunnah-drink">Sunnah Inspired Drinks</button>
+        <button class="tab-btn" data-cat="breakfast">Breakfast Menu</button>
+        <button class="tab-btn" data-cat="dessert">Desserts</button>
+        <button class="tab-btn" data-cat="merch">Exclusive Merchandise</button>
+      </div>
+      <div class="menu-grid" id="main-menu-grid">
+        <div class="card item-coffee"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/6d/ae/f9/6daef957ad508a6d8e67fe713f5c3c52.jpg" alt="Honey Latte"><div class="card-body"><div class="card-title">Honey Latte</div><div class="card-note">Premium coffee injected with honey</div><button class="order-btn" data-item="Honey Latte">Select & Order</button></div></div>
+        <div class="card item-coffee"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/6c/1f/93/6c1f93c34ba1744883c0026a7510428e.jpg" alt="Date Caramel Latte"><div class="card-body"><div class="card-title">Date Caramel Latte</div><div class="card-note">Natural date syrup & smooth caramel blend</div><button class="order-btn" data-item="Date Caramel Latte">Select & Order</button></div></div>
+        <div class="card item-coffee"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/10/1d/0d/101d0d07d2b58481eb579e6d5cb9eab4.jpg" alt="Honey Cinnamon Cappuccino"><div class="card-body"><div class="card-title">Honey Cinnamon Cappuccino</div><div class="card-note">Espresso with cinnamon dusting & honey</div><button class="order-btn" data-item="Honey Cinnamon Cappuccino">Select & Order</button></div></div>
+        <div class="card item-coffee"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/4a/8b/e1/4a8be1181973982ef71aca416448ff5e.jpg" alt="Brew Hayven Signature Mocha"><div class="card-body"><div class="card-title">Brew Hayven Signature Mocha</div><div class="card-note">Rich dark chocolate meets robust espresso</div><button class="order-btn" data-item="Brew Hayven Signature Mocha">Select & Order</button></div></div>
+
+        <div class="card item-dessert"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/4d/40/6c/4d406c115f8c9f3cdef26eb630fca207.jpg" alt="Honey Cheesecake"><div class="card-body"><div class="card-title">Honey Cheesecake</div><div class="card-note">Velvety cheesecake with luxury honey glaze</div><button class="order-btn" data-item="Honey Cheesecake">Select & Order</button></div></div>
+        <div class="card item-dessert"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/7e/82/95/7e82950dd977c69194b87976fb716870.jpg" alt="Date Brownies"><div class="card-body"><div class="card-title">Date Brownies</div><div class="card-note">Fudgy chocolate brownies sweetened with wholesome dates</div><button class="order-btn" data-item="Date Brownies">Select & Order</button></div></div>
+        <div class="card item-dessert"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/e0/99/c7/e099c7997dfcd32c6d3235422c66552d.jpg" alt="Pistachio Cake"><div class="card-body"><div class="card-title">Pistachio Cake</div><div class="card-note">Premium nutty pistachio layers</div><button class="order-btn" data-item="Pistachio Cake">Select & Order</button></div></div>
+        <div class="card item-dessert"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/3d/fa/ef/3dfaefecefbc513b714fe019e2097a95.jpg" alt="Honey Butter Waffle"><div class="card-body"><div class="card-title">Honey Butter Waffle</div><div class="card-note">Crispy golden waffle served with sweet honey butter</div><button class="order-btn" data-item="Honey Butter Waffle">Select & Order</button></div></div>
+        <div class="card item-dessert"><img class="card-img-placeholder" src="https://i.pinimg.com/236x/27/f2/0d/27f20df69f43e370dcd602c45cf42970.jpg" alt="Date & Walnut Muffin"><div class="card-body"><div class="card-title">Date & Walnut Muffin</div><div class="card-note">Soft muffin packed with nutritious dates and walnuts</div><button class="order-btn" data-item="Date & Walnut Muffin">Select & Order</button></div></div>
+
+        <div class="card item-sunnah-drink"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/07/c6/82/07c682faf9b28858aafecd7a2c5c61ec.jpg" alt="Ajwa Date Smoothie"><div class="card-body"><div class="card-title">Ajwa Date Smoothie</div><div class="card-note">Creamy rich blend containing authentic Ajwa dates</div><button class="order-btn" data-item="Ajwa Date Smoothie">Select & Order</button></div></div>
+        <div class="card item-sunnah-drink"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/af/84/08/af84081c75712b28ea2d5896d264ca07.jpg" alt="Honey Lemon Refresher"><div class="card-body"><div class="card-title">Honey Lemon Refresher</div><div class="card-note">Zesty freshly squeezed lemon balanced with pure honey</div><button class="order-btn" data-item="Honey Lemon Refresher">Select & Order</button></div></div>
+        <div class="card item-sunnah-drink"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/92/6e/a7/926ea7b11f8b6949964d004d679d8075.jpg" alt="Barley Bliss"><div class="card-body"><div class="card-title">Barley Bliss</div><div class="card-note">Cool traditional wholesome organic barley extract</div><button class="order-btn" data-item="Barley Bliss">Select & Order</button></div></div>
+        <div class="card item-sunnah-drink"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/04/91/46/0491462b7695c3c3955ec300f23dde3e.jpg" alt="Fig & Honey Milk"><div class="card-body"><div class="card-title">Fig & Honey Milk</div><div class="card-note">Wholesome warm milk combined with sweet luscious figs</div><button class="order-btn" data-item="Fig & Honey Milk">Select & Order</button></div></div>
+        <div class="card item-sunnah-drink"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/96/14/29/961429a9e4b824c72f269d67afb6783e.jpg" alt="Habbatus Sauda Latte"><div class="card-body"><div class="card-title">Habbatus Sauda Latte</div><div class="card-note">Steamed milk carefully infused with health-packed black seed</div><button class="order-btn" data-item="Habbatus Sauda Latte">Select & Order</button></div></div>
+
+        <div class="card item-breakfast"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/34/06/b3/3406b3c400fff2027864fe81547a8e11.jpg" alt="Sunnah Breakfast Platter"><div class="card-body"><div class="card-title">Sunnah Breakfast Platter</div><div class="card-note">Kurma ajwa, roti bakar, telur rebus, madu asli & buah segar</div><button class="order-btn" data-item="Sunnah Breakfast Platter">Select & Order</button></div></div>
+        <div class="card item-breakfast"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/38/b0/75/38b07579999b4a9b0c0203b4cc072401.jpg" alt="Honey Butter Croissant"><div class="card-body"><div class="card-title">Honey Butter Croissant</div><div class="card-note">Flaky, buttery pastry beautifully glazed with fresh honey</div><button class="order-btn" data-item="Honey Butter Croissant">Select & Order</button></div></div>
+        <div class="card item-breakfast"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/2f/62/d3/2f62d3cad556f1a293df6540b1afaa9c.jpg" alt="Date Oat Bowl"><div class="card-body"><div class="card-title">Date Oat Bowl</div><div class="card-note">Oat bersama madu, kurma & kekacang</div><button class="order-btn" data-item="Date Oat Bowl">Select & Order</button></div></div>
+        <div class="card item-breakfast"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/54/44/8b/54448bd56757413d5635e945d1faa5db.jpg" alt="Avocado & Egg Toast"><div class="card-body"><div class="card-title">Avocado & Egg Toast</div><div class="card-note">Healthy mashed avocado layered with perfectly cooked egg</div><button class="order-btn" data-item="Avocado & Egg Toast">Select & Order</button></div></div>
+        <div class="card item-breakfast"><img class="card-img-placeholder" src="https://i.pinimg.com/1200x/b4/1e/e4/b41ee4966c34e48ab03bb5d6acb04d6b.jpg" alt="Mediterranean Breakfast"><div class="card-body"><div class="card-title">Mediterranean Breakfast</div><div class="card-note">Roti pita, hummus, zaitun & telur</div><button class="order-btn" data-item="Mediterranean Breakfast">Select & Order</button></div></div>
+
+        <div class="card item-merch"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/c1/b9/4d/c1b94de1d1ada8a4f320319ef0114b9a.jpg" alt="Premium Honey Jar"><div class="card-body"><div class="card-title">Premium Honey Jar 🍯</div><div class="card-note">High quality pure organic farm honey</div><button class="order-btn" data-item="Premium Honey Jar">Select & Order</button></div></div>
+        <div class="card item-merch"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/51/b3/82/51b382225d5dae539bdbe72c9d7b2b61.jpg" alt="Honey Tumbler"><div class="card-body"><div class="card-title">Honey Tumbler 🥤</div><div class="card-note">Exclusive sleek dynamic hot/cold insulation flask</div><button class="order-btn" data-item="Honey Tumbler">Select & Order</button></div></div>
+        <div class="card item-merch"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/a1/97/07/a197079209c3470decb4d86c8f7bed4b.jpg" alt="Date Gift Box"><div class="card-body"><div class="card-title">Date Gift Box 🌴</div><div class="card-note">Aesthetic packaging containing selection of premium dates</div><button class="order-btn" data-item="Date Gift Box">Select & Order</button></div></div>
+        <div class="card item-merch"><img class="card-img-placeholder" src="https://i.pinimg.com/736x/de/59/9a/de599ae66475ab4e98ca5519e1b39e0d.jpg" alt="Herbal Tea"><div class="card-body"><div class="card-title">Herbal Tea 🍁</div><div class="card-note">Calming herbal leaf composition to soothe your stress away</div><button class="order-btn" data-item="Herbal Tea">Select & Order</button></div></div>
+      </div>
+    </section>
+
+    <section id="wf-order-online" class="workflow-section">
+      <h3 style="color:var(--dark-brown); margin-bottom:15px;">🛒 Order Online</h3>
+      <div class="form-group">
+        <label for="wf-item-name">Selected Food/Drink:</label>
+        <input type="text" id="wf-item-name" readonly>
+      </div>
+      <div class="form-group">
+        <label for="wf-qty">Quantity:</label>
+        <input type="number" id="wf-qty" value="1" min="1">
+      </div>
+      <div class="form-group">
+        <label for="wf-notes">Special Notes:</label>
+        <textarea id="wf-notes" rows="2" placeholder="Masukkan permintaan anda..."></textarea>
+      </div>
+      <button class="btn-submit" id="toCheckoutBtn">Proceed to Checkout ➡️</button>
+    </section>
+
+    <section id="wf-checkout" class="workflow-section">
+      <h3 style="color:var(--dark-brown); margin-bottom:15px;">💳 Checkout Details</h3>
+      <div class="form-group">
+        <label for="wf-payment">Select Payment Method:</label>
+        <select id="wf-payment">
+          <option value="Online Banking (FPX)">Online Banking (FPX)</option>
+          <option value="E-Wallet (TNG/GrabPay)">E-Wallet (Touch 'n Go / GrabPay)</option>
+          <option value="Credit / Debit Card">Credit / Debit Card</option>
+        </select>
+      </div>
+      <button class="btn-submit" id="completePayBtn">Complete Payment & Confirm 🔒</button>
+    </section>
+
+    <section id="wf-confirmation" class="workflow-section">
+      <div style="text-align:center; margin-bottom:15px;">
+        <span style="font-size:40px;">✅</span>
+        <h3 style="color:var(--dark-brown);">Order Confirmed!</h3>
+      </div>
+      <div class="receipt-box">
+        <p><strong>Item:</strong> <span id="r-item"></span></p>
+        <p><strong>Quantity:</strong> <span id="r-qty"></span></p>
+        <p><strong>Notes:</strong> <span id="r-notes">-</span></p>
+        <p><strong>Payment via:</strong> <span id="r-pay"></span></p>
+        <p style="margin-top:10px;border-top:1px solid #ccc;padding-top:5px;"><strong>Status:</strong> <span style="color:green;font-weight:bold;">Preparing your bliss...</span></p>
+      </div>
+      <button class="btn-submit" style="margin-top:15px;background:linear-gradient(135deg,#8c634a,#6f4b35);" id="resetWorkflowBtn">Order New Item / End Process 🏁</button>
+    </section>
+
+    <section id="about-section" class="page-content" style="display:none;">
+      <h2 class="section-title">About Us</h2>
+      <div class="info-card">
+        <h3>Learn About Our Café</h3>
+        <p style="margin-top:10px;">Brew Hayven Café diasaskan dengan matlamat untuk menyediakan ruang yang tenang (*hayven*) dan selesa bagi komuniti terutamanya para pelajar dan penduduk sekitar Nilai. Kami membawakan keunikan hidangan berkualiti tinggi yang diinspirasikan daripada khasiat makanan Sunnah.</p>
+      </div>
+    </section>
+
+    <section id="promo-section" class="page-content" style="display:none;">
+      <h2 class="section-title">Promotions</h2>
+      <div class="info-card" style="background: linear-gradient(135deg,#8c634a,#a0704a);">
+        <h3>View Special Offers</h3>
+        <p style="margin-top:10px;">🎉 <strong>Combo Ramadhan & Jumaat Berkat:</strong> Nikmati diskaun eksklusif bagi setiap pembelian Sunnah Breakfast Platter bersama mana-mana siri Signature Coffee!</p>
+      </div>
+    </section>
+
+    <section id="gallery-section" class="page-content" style="display:none;">
+      <h2 class="section-title">Gallery</h2>
+      <div class="info-card" style="background: linear-gradient(135deg,#d6be9c,#e7d3bb); color: var(--dark-brown);">
+        <h3>Browse Café Photos</h3>
+        <div class="gallery-grid">
+          <img class="gallery-img" src="https://i.pinimg.com/736x/e5/f4/40/e5f440a227b9ab19e8bbe098798da7c9.jpg" alt="Cozy Main Dining Interior">
+          <img class="gallery-img" src="https://i.pinimg.com/736x/ac/78/ea/ac78ea1de4b9878b596174a788166172.jpg" alt="Aesthetic Coffee Counter Area">
+          <img class="gallery-img" src="https://i.pinimg.com/736x/c2/5a/30/c25a30b80b0249d569c96e6d9f568dde.jpg" alt="Student Workspaces Corner">
+        </div>
+      </div>
+    </section>
+
+    <section id="reserve-section" class="page-content" style="display:none; padding-bottom: 120px;">
+      <h2 class="section-title">Reserve A Table</h2>
+      <div class="workflow-section" id="wf-reserve-form" style="display:block; max-width:100%;">
+        <h3 style="color:var(--dark-brown); margin-bottom:15px;">📋 Fill Reservation Form</h3>
+        <form id="reserveForm">
+          <div class="form-group">
+            <label for="res-name">Your Name:</label>
+            <input type="text" id="res-name" required placeholder="e.g., Thufail">
+          </div>
+          <div class="form-group">
+            <label for="res-pax">Number of Pax:</label>
+            <select id="res-pax">
+              <option value="2">2 Pax</option>
+              <option value="4">4 Pax</option>
+              <option value="6">6 Pax</option>
+              <option value="8+">Family Gathering (8+ Pax)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="res-time">Date & Time:</label>
+            <input type="datetime-local" id="res-time" required>
+          </div>
+          <button type="submit" class="btn-submit">Submit Reservation Form ➡️</button>
+        </form>
+      </div>
+      <div class="workflow-section" id="wf-reserve-confirm" style="margin-top:20px; display:none;">
+        <div style="text-align:center;">
+          <span style="font-size:40px;">✉️</span>
+          <h3 style="color:var(--dark-brown);">Confirmation Message Sent!</h3>
+          <p style="font-size:14px; margin-top:10px;">Tempahan meja anda telah berjaya direkodkan. Sila semak WhatsApp atau emel anda untuk pengesahan masuk.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 Brew Hayven Café. Every Sip, Inspired by Sunnah. All Rights Reserved.</footer>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.page-content').forEach(page => page.style.display = 'none');
+      const page = document.getElementById(pageId);
+      if (page) page.style.display = 'block';
+
+      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+      const navMap = {
+        home: 'nav-home',
+        'menu-section': 'nav-menu',
+        'about-section': 'nav-about',
+        'promo-section': 'nav-promo',
+        'gallery-section': 'nav-gallery',
+        'reserve-section': 'nav-reserve'
+      };
+      const nav = document.getElementById(navMap[pageId]);
+      if (nav) nav.classList.add('active');
+
+      if (pageId !== 'menu-section') closeAllOrderWorkflows();
+      document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeAllOrderWorkflows() {
+      ['wf-order-online', 'wf-checkout', 'wf-confirmation'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+
+    function startOrderWorkflow(itemName) {
+      closeAllOrderWorkflows();
+      document.getElementById('wf-item-name').value = itemName;
+      const wf = document.getElementById('wf-order-online');
+      wf.style.display = 'block';
+      wf.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function goToCheckout() {
+      document.getElementById('wf-order-online').style.display = 'none';
+      document.getElementById('wf-checkout').style.display = 'block';
+      document.getElementById('wf-checkout').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function goToConfirmation() {
+      document.getElementById('wf-checkout').style.display = 'none';
+      document.getElementById('r-item').innerText = document.getElementById('wf-item-name').value;
+      document.getElementById('r-qty').innerText = document.getElementById('wf-qty').value;
+      document.getElementById('r-notes').innerText = document.getElementById('wf-notes').value || 'None';
+      document.getElementById('r-pay').innerText = document.getElementById('wf-payment').value;
+      document.getElementById('wf-confirmation').style.display = 'block';
+      document.getElementById('wf-confirmation').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetWorkflow() {
+      closeAllOrderWorkflows();
+      document.getElementById('wf-qty').value = '1';
+      document.getElementById('wf-notes').value = '';
+      showPage('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function submitReservation(e) {
+      e.preventDefault();
+      const confirm = document.getElementById('wf-reserve-confirm');
+      confirm.style.display = 'block';
+      confirm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('click', (e) => {
+      const navTarget = e.target.closest('[data-target]');
+      if (navTarget) {
+        e.preventDefault();
+        showPage(navTarget.dataset.target);
+        return;
+      }
+
+      const orderBtn = e.target.closest('.order-btn');
+      if (orderBtn) startOrderWorkflow(orderBtn.dataset.item);
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const category = this.dataset.cat;
+        document.querySelectorAll('.menu-grid .card').forEach(card => {
+          card.style.display = (category === 'all' || card.classList.contains('item-' + category)) ? 'flex' : 'none';
+        });
+      });
+    });
+
+    document.getElementById('toCheckoutBtn').addEventListener('click', goToCheckout);
+    document.getElementById('completePayBtn').addEventListener('click', goToConfirmation);
+    document.getElementById('resetWorkflowBtn').addEventListener('click', resetWorkflow);
+    document.getElementById('reserveForm').addEventListener('submit', submitReservation);
+  </script>
+</body>
+</html>
